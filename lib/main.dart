@@ -16,10 +16,6 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   ScanResult? scanResult;
 
-  final _flashOnController = TextEditingController(text: 'Flash on');
-  final _flashOffController = TextEditingController(text: 'Flash off');
-  final _cancelController = TextEditingController(text: 'Cancel');
-
   var _aspectTolerance = 0.00;
   var _numberOfCameras = 0;
   var _selectedCamera = -1;
@@ -106,33 +102,6 @@ class _AppState extends State<App> {
               title: Text('Button Texts'),
               dense: true,
               enabled: false,
-            ),
-            ListTile(
-              title: TextField(
-                decoration: const InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelText: 'Flash On',
-                ),
-                controller: _flashOnController,
-              ),
-            ),
-            ListTile(
-              title: TextField(
-                decoration: const InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelText: 'Flash Off',
-                ),
-                controller: _flashOffController,
-              ),
-            ),
-            ListTile(
-              title: TextField(
-                decoration: const InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelText: 'Cancel',
-                ),
-                controller: _cancelController,
-              ),
             ),
             if (Platform.isAndroid) ...[
               const ListTile(
@@ -231,11 +200,6 @@ class _AppState extends State<App> {
     try {
       final result = await BarcodeScanner.scan(
         options: ScanOptions(
-          strings: {
-            'cancel': _cancelController.text,
-            'flash_on': _flashOnController.text,
-            'flash_off': _flashOffController.text,
-          },
           restrictFormat: selectedFormats,
           useCamera: _selectedCamera,
           autoEnableFlash: _autoEnableFlash,
